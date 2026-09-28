@@ -2,7 +2,7 @@
 
 A workshop-ready conference planner built with Next.js, TypeScript, React, and Tailwind CSS. Browse sessions, meet speakers, and build a personal schedule that persists in the browser.
 
-The project also includes an initial WebMCP integration. The current demo exposes read-only tools for listing all sessions and retrieving a single session. Additional tool definitions remain as workshop TODOs, while their reusable handlers are already prepared in `lib/webmcp/handlers.ts`.
+The project also includes a WebMCP integration that exposes the conference catalog and schedule actions to compatible browser agents. Reusable tool logic lives in `lib/webmcp/handlers.ts`.
 
 ## Requirements
 
@@ -43,17 +43,31 @@ npm run lint && npx tsc --noEmit && npm run build
 - Personal schedule stored in `localStorage`
 - Conflict detection and free-time calculation
 - Responsive layout with keyboard-accessible controls
-- Initial WebMCP tools registered through `document.modelContext`
+- WebMCP tools registered through `document.modelContext`
 - Static generation for session and speaker detail pages
 
 ## WebMCP demo flow
 
-The current tools are:
+The available tools are:
 
 1. `get_all_sessions` — list the complete program
 2. `get_session` — retrieve a session and its speaker by ID
+3. `search_sessions` — search by title, description, room, or topic
+4. `filter_sessions_by_topic` — filter by topic
+5. `filter_sessions_by_level` — filter by difficulty level
+6. `filter_sessions_by_time` — filter by a validated time range
+7. `get_all_speakers` — list speaker profiles
+8. `get_speaker` — retrieve a speaker and their sessions
+9. `get_sessions_by_speaker` — list sessions for a speaker
+10. `get_my_schedule` — read the saved schedule
+11. `check_schedule_conflict` — find overlapping sessions
+12. `find_free_slots` — find open time slots
+13. `add_to_schedule` — add a session and return conflicts
+14. `remove_from_schedule` — remove a session
+15. `clear_schedule` — clear the saved schedule
+16. `open_session` — navigate to a session detail page
 
-The remaining tool handlers are ready for the workshop. Participants can add their schemas and registrations in `components/WebMcpTools.tsx` without implementing the underlying session or schedule logic.
+Schedule mutations use the same client-side state as the UI, so tool-driven changes update the visible schedule and header count.
 
 WebMCP is optional. If the browser does not expose `document.modelContext`, the rest of the application continues to work normally.
 
