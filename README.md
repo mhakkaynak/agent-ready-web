@@ -2,7 +2,7 @@
 
 A workshop-ready conference planner built with Next.js, TypeScript, React, and Tailwind CSS. Browse sessions, meet speakers, and build a personal schedule that persists in the browser.
 
-The project also includes an initial WebMCP integration. The current demo exposes read-only tools for listing all sessions and retrieving a single session. Additional search, filtering, speaker, and schedule tools are intentionally left as follow-up extensions for the presentation.
+The project also includes an initial WebMCP integration. The current demo exposes read-only tools for listing all sessions and retrieving a single session. Additional tool definitions remain as workshop TODOs, while their reusable handlers are already prepared in `lib/webmcp/handlers.ts`.
 
 ## Requirements
 
@@ -53,16 +53,7 @@ The current tools are:
 1. `get_all_sessions` — list the complete program
 2. `get_session` — retrieve a session and its speaker by ID
 
-The planned extension path is:
-
-```text
-get_all_sessions
-  -> search_sessions
-  -> get_session
-  -> add_to_schedule
-  -> check_schedule_conflict
-  -> find_free_slots
-```
+The remaining tool handlers are ready for the workshop. Participants can add their schemas and registrations in `components/WebMcpTools.tsx` without implementing the underlying session or schedule logic.
 
 WebMCP is optional. If the browser does not expose `document.modelContext`, the rest of the application continues to work normally.
 
@@ -72,6 +63,7 @@ WebMCP is optional. If the browser does not expose `document.modelContext`, the 
 app/          App Router pages and layouts
 components/   UI components and client-side schedule state
 lib/           Session, speaker, time, and schedule domain logic
+lib/webmcp/    WebMCP handlers kept separate from React registration
 public/        Static assets
 types/         WebMCP type declarations
 ```

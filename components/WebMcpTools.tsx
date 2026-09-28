@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { getAllSessions, getSessionById } from "@/lib/sessions";
-import { getSpeakerInfo } from "@/lib/speakers";
+import { webMcpHandlers } from "@/lib/webmcp/handlers";
 
 const tools: WebMcpTool[] = [
   {
@@ -11,11 +10,7 @@ const tools: WebMcpTool[] = [
     description: "List DevFest sessions with their IDs, times, rooms, levels, and topics.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
     annotations: { readOnlyHint: true },
-    execute: async (_input, { signal }) => {
-      signal.throwIfAborted();
-      const sessions = getAllSessions();
-      return { count: sessions.length, sessions };
-    },
+    execute: webMcpHandlers.getAllSessions,
   },
   {
     name: "get_session",
@@ -29,35 +24,24 @@ const tools: WebMcpTool[] = [
       additionalProperties: false,
     },
     annotations: { readOnlyHint: true },
-    execute: async (input, { signal }) => {
-      signal.throwIfAborted();
-      const id = typeof input.id === "string" ? input.id.trim() : "";
-      const session = id ? getSessionById(id) : undefined;
-      if (!session) return { found: false, error: "Session not found." };
-      return {
-        found: true,
-        session,
-        speaker: getSpeakerInfo(session.speakerId),
-        url: `/sessions/${encodeURIComponent(session.id)}`,
-      };
-    },
+    execute: webMcpHandlers.getSession,
   },
 ];
 
-// TODO: Register search_sessions using searchSessions for title, description, room, and topic queries.
-// TODO: Register filter_sessions_by_topic using filterSessionsByTopic.
-// TODO: Register filter_sessions_by_level using filterSessionsByLevel.
-// TODO: Register filter_sessions_by_time using filterSessionsByTime, with validated HH:mm inputs.
-// TODO: Register get_sessions_by_speaker using getSessionsBySpeaker.
-// TODO: Register get_all_speakers using getAllSpeakers.
-// TODO: Register get_speaker using getSpeakerInfo.
-// TODO: Register get_my_schedule using getMySchedule.
-// TODO: Register check_schedule_conflict using checkScheduleConflict.
-// TODO: Register find_free_slots using findFreeSlots.
-// TODO: Register add_to_schedule using addToSchedule and sync the ScheduleProvider UI.
-// TODO: Register remove_from_schedule using removeFromSchedule and sync the ScheduleProvider UI.
-// TODO: Register clear_schedule using clearSchedule and sync the ScheduleProvider UI.
-// TODO: Register open_session separately if agent-driven navigation is needed; keep get_session read-only.
+// TODO: Register search_sessions using webMcpHandlers.searchSessions.
+// TODO: Register filter_sessions_by_topic using webMcpHandlers.filterSessionsByTopic.
+// TODO: Register filter_sessions_by_level using webMcpHandlers.filterSessionsByLevel.
+// TODO: Register filter_sessions_by_time using webMcpHandlers.filterSessionsByTime.
+// TODO: Register get_sessions_by_speaker using webMcpHandlers.getSessionsBySpeaker.
+// TODO: Register get_all_speakers using webMcpHandlers.getAllSpeakers.
+// TODO: Register get_speaker using webMcpHandlers.getSpeaker.
+// TODO: Register get_my_schedule using webMcpHandlers.getMySchedule.
+// TODO: Register check_schedule_conflict using webMcpHandlers.checkScheduleConflict.
+// TODO: Register find_free_slots using webMcpHandlers.findFreeSlots.
+// TODO: Register add_to_schedule using createScheduleHandlers and sync the ScheduleProvider UI.
+// TODO: Register remove_from_schedule using createScheduleHandlers and sync the ScheduleProvider UI.
+// TODO: Register clear_schedule using createScheduleHandlers and sync the ScheduleProvider UI.
+// TODO: Register open_session using createScheduleHandlers and the Next.js router.
 
 export function WebMcpTools() {
   useEffect(() => {
