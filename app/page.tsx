@@ -1,69 +1,88 @@
-import Image from "next/image";
+import Link from "next/link";
+import { SessionList } from "@/components/SessionList";
+import { getAllSessions } from "@/lib/sessions";
 
+const topics = ["AI", "Web", "Backend", "Cloud", "Mobile", "DevOps", "Security"];
 export default function Home() {
+  const featured = getAllSessions().filter((session) =>
+    ["web-performance", "ai-evaluation", "passkeys"].includes(session.id),
+  );
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <section className="hero">
+        <div className="container hero-inner">
+          <div className="hero-copy">
+            <p className="eyebrow">DevFest · 18 October</p>
+            <h1>
+              Build your <span>best day</span> at DevFest.
+            </h1>
+            <p>
+              Explore practical sessions from engineers and builders, then shape a personal schedule
+              that keeps every great idea within reach.
+            </p>
+            <div className="hero-actions">
+              <Link className="button" href="/sessions">
+                Explore all sessions →
+              </Link>
+              <Link className="button secondary" href="/schedule">
+                View my schedule
+              </Link>
+            </div>
+          </div>
+          <div className="hero-board" aria-hidden="true">
+            <span className="color-orbit orbit-blue" />
+            <span className="color-orbit orbit-red" />
+            <span className="color-orbit orbit-yellow" />
+            <span className="color-orbit orbit-green" />
+            <div className="date-card">
+              <div>
+                <span>Saturday</span>
+                <br />
+                <strong>18 OCT</strong>
+              </div>
+              <div className="date-row">
+                <span>09:00–18:00</span>
+                <b>4 stages</b>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+      <section className="home-section">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Start exploring</p>
+              <h2 className="section-title">Find your track</h2>
+            </div>
+          </div>
+          <div className="topic-strip">
+            {topics.map((topic) => (
+              <Link
+                key={topic}
+                className="topic-link"
+                href={`/sessions?topic=${encodeURIComponent(topic)}`}
+              >
+                {topic}
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+      <section className="home-section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Worth a look</p>
+              <h2 className="section-title">Featured sessions</h2>
+            </div>
+            <Link className="text-link" href="/sessions">
+              See the full program →
+            </Link>
+          </div>
+          <SessionList sessions={featured} />
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevFest Session Planner
 
-## Getting Started
+A workshop-ready conference planner built with Next.js, TypeScript, React, and Tailwind CSS. Browse sessions, meet speakers, and build a personal schedule that persists in the browser.
 
-First, run the development server:
+The project also includes an initial WebMCP integration. The current demo exposes read-only tools for listing all sessions and retrieving a single session. Additional search, filtering, speaker, and schedule tools are intentionally left as follow-up extensions for the presentation.
+
+## Requirements
+
+- Node.js 20.9 or newer
+- npm
+
+## Getting started
+
+Install dependencies and start the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev       # Start the development server
+npm run lint      # Run ESLint
+npm run build     # Create a production build
+npm run start     # Serve the production build
+npx tsc --noEmit  # Run the TypeScript check
+```
 
-## Learn More
+Before presenting or deploying, run:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint && npx tsc --noEmit && npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Session browsing with search and topic, level, and time filters
+- Session and speaker detail pages with generated metadata
+- Personal schedule stored in `localStorage`
+- Conflict detection and free-time calculation
+- Responsive layout with keyboard-accessible controls
+- Initial WebMCP tools registered through `document.modelContext`
+- Static generation for session and speaker detail pages
 
-## Deploy on Vercel
+## WebMCP demo flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The current tools are:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. `get_all_sessions` — list the complete program
+2. `get_session` — retrieve a session and its speaker by ID
+
+The planned extension path is:
+
+```text
+get_all_sessions
+  -> search_sessions
+  -> get_session
+  -> add_to_schedule
+  -> check_schedule_conflict
+  -> find_free_slots
+```
+
+WebMCP is optional. If the browser does not expose `document.modelContext`, the rest of the application continues to work normally.
+
+## Project structure
+
+```text
+app/          App Router pages and layouts
+components/   UI components and client-side schedule state
+lib/           Session, speaker, time, and schedule domain logic
+public/        Static assets
+types/         WebMCP type declarations
+```
+
+## Notes
+
+This is a front-end demo with an in-memory catalog and browser-local schedule persistence. It does not include authentication, a remote database, or cross-device synchronization.
