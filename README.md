@@ -9,6 +9,68 @@ The project also includes an initial WebMCP integration. The current demo expose
 - Node.js 20.9 or newer
 - npm
 
+### Windows
+
+Open PowerShell as Administrator and install `nvm-windows`:
+
+```powershell
+winget install CoreyButler.NVMforWindows
+nvm install 24
+nvm use 24
+node -v # Should print a v24.x version
+npm -v
+```
+
+If `winget` is not available, install `nvm-windows` from the [official releases page](https://github.com/coreybutler/nvm-windows/releases), then reopen PowerShell and run the commands above.
+
+### macOS
+
+The recommended option is Homebrew:
+
+```bash
+brew install nvm
+mkdir -p "$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
+nvm install 24
+node -v # Should print a v24.x version
+npm -v
+```
+
+Alternatively, download and install the LTS version from [nodejs.org](https://nodejs.org/en/download).
+
+If you prefer installing `nvm` directly in Terminal:
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+. "$HOME/.nvm/nvm.sh"
+nvm install 24
+node -v # Should print a v24.x version
+npm -v
+```
+
+If `nvm` is not found after installation, close and reopen Terminal, then run the commands again.
+
+### Linux
+
+Run these commands in your terminal:
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+. "$HOME/.nvm/nvm.sh"
+nvm install 24
+node -v # Should print a v24.x version
+npm -v
+```
+
+If `nvm` is not found after installation, close and reopen your terminal, then run the commands again.
+
+After Node.js and npm are installed, run the project commands from the project directory:
+
+```bash
+npm install
+npm run dev
+```
+
 ## Getting started
 
 Install dependencies and start the development server:
