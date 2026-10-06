@@ -28,20 +28,20 @@ const tools: WebMcpTool[] = [
   },
 ];
 
-// TODO: Register search_sessions using webMcpHandlers.searchSessions.
-// TODO: Register filter_sessions_by_topic using webMcpHandlers.filterSessionsByTopic.
-// TODO: Register filter_sessions_by_level using webMcpHandlers.filterSessionsByLevel.
-// TODO: Register filter_sessions_by_time using webMcpHandlers.filterSessionsByTime.
-// TODO: Register get_sessions_by_speaker using webMcpHandlers.getSessionsBySpeaker.
-// TODO: Register get_all_speakers using webMcpHandlers.getAllSpeakers.
-// TODO: Register get_speaker using webMcpHandlers.getSpeaker.
-// TODO: Register get_my_schedule using webMcpHandlers.getMySchedule.
-// TODO: Register check_schedule_conflict using webMcpHandlers.checkScheduleConflict.
-// TODO: Register find_free_slots using webMcpHandlers.findFreeSlots.
-// TODO: Register add_to_schedule using createScheduleHandlers and sync the ScheduleProvider UI.
-// TODO: Register remove_from_schedule using createScheduleHandlers and sync the ScheduleProvider UI.
-// TODO: Register clear_schedule using createScheduleHandlers and sync the ScheduleProvider UI.
-// TODO: Register open_session using createScheduleHandlers and the Next.js router.
+// TODO: search_sessions
+// TODO: filter_sessions_by_topic
+// TODO: filter_sessions_by_level
+// TODO: filter_sessions_by_time
+// TODO: get_sessions_by_speaker
+// TODO: get_all_speakers
+// TODO: get_speaker
+// TODO: get_my_schedule
+// TODO: check_schedule_conflict
+// TODO: find_free_slots
+// TODO: add_to_schedule
+// TODO: remove_from_schedule
+// TODO: clear_schedule
+// TODO: open_session
 
 export function WebMcpTools() {
   useEffect(() => {
